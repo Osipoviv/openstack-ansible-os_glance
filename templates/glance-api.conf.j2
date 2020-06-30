@@ -43,8 +43,6 @@ enabled_backends = {% for backend in glance_available_stores %}{{ ('name' in bac
 task_executor = {{ glance_task_executor }}
 
 [database]
-connection = mysql+pymysql://{{ glance_galera_user }}:{{ glance_container_mysql_password }}@{{ glance_galera_address }}/{{ glance_galera_database }}?charset=utf8{% if glance_galera_use_ssl | bool %}&ssl_ca={{ glance_galera_ssl_ca_cert }}{% endif %}
-
 [keystone_authtoken]
 insecure = {{ keystone_service_internaluri_insecure | bool }}
 auth_type = {{ glance_keystone_auth_plugin }}
@@ -110,6 +108,14 @@ rbd_store_pool = {{ glance_rbd_store_pool }}
 rbd_store_user = {{ glance_rbd_store_user }}
 rbd_store_ceph_conf = /etc/ceph/ceph.conf
 rbd_store_chunk_size = {{ glance_rbd_store_chunk_size }}
+{% endif %}
+
+{% if 's3' in glance_available_stores %}
+[s3]
+s3_store_host = {{ glance_s3_store_host }}
+s3_store_access_key = {{ glance_s3_store_access_key }}
+s3_store_secret_key = {{ glance_s3_store_secret_key }}
+s3_store_bucket = {{ glance_s3_store_bucket }}
 {% endif %}
 
 [profiler]
