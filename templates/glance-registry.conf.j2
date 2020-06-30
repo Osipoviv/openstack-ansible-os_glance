@@ -20,7 +20,7 @@ enable_v2_registry = {{ glance_enable_v2_registry | bool }}
 transport_url = {{ glance_oslomsg_rpc_transport }}://{% for host in glance_oslomsg_rpc_servers.split(',') %}{{ glance_oslomsg_rpc_userid }}:{{ glance_oslomsg_rpc_password }}@{{ host }}:{{ glance_oslomsg_rpc_port }}{% if not loop.last %},{% else %}/{{ glance_oslomsg_rpc_vhost }}{% if glance_oslomsg_rpc_use_ssl | bool %}?ssl=1{% else %}?ssl=0{% endif %}{% endif %}{% endfor %}
 
 [database]
-connection = mysql+pymysql://{{ glance_galera_user }}:{{ glance_container_mysql_password }}@{{ glance_galera_address }}/{{ glance_galera_database }}?charset=utf8{% if glance_galera_use_ssl | bool %}&ssl_ca={{ glance_galera_ssl_ca_cert }}{% endif %}
+connection = {{ glance_galera_connection_string }}
 
 [keystone_authtoken]
 insecure = {{ keystone_service_internaluri_insecure | bool }}

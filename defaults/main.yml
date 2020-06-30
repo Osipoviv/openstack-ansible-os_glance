@@ -130,6 +130,8 @@ glance_galera_database: glance
 glance_galera_user: glance
 glance_galera_use_ssl: "{{ galera_use_ssl | default(False) }}"
 glance_galera_ssl_ca_cert: "{{ galera_ssl_ca_cert | default('/etc/ssl/certs/galera-ca.pem') }}"
+glance_galera_connection_string: >-
+  mysql+pymysql://{{ glance_galera_user }}:{{ glance_container_mysql_password }}@{{ glance_galera_address }}/{{ glance_galera_database }}?charset=utf8{% if glance_galera_use_ssl | bool %}&ssl_ca={{ glance_galera_ssl_ca_cert }}{% endif %}
 
 glance_role_name: admin
 glance_api_bind_address: "{{ openstack_service_bind_address | default('0.0.0.0') }}"
