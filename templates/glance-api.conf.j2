@@ -112,6 +112,14 @@ rbd_store_ceph_conf = /etc/ceph/ceph.conf
 rbd_store_chunk_size = {{ glance_rbd_store_chunk_size }}
 {% endif %}
 
+{% if 's3' in glance_available_stores %}
+[s3]
+s3_store_host = {{ glance_s3_store_host }}
+s3_store_access_key = {{ glance_s3_store_access_key }}
+s3_store_secret_key = {{ glance_s3_store_secret_key }}
+s3_store_bucket = {{ glance_s3_store_bucket }}
+{% endif %}
+
 [profiler]
 enabled = {{ glance_profiler_enabled }}
 
